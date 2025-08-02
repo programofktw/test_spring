@@ -1,9 +1,11 @@
 package com.example.stepwise_back.domain.post.controller.dto.response;
 
 import com.example.stepwise_back.domain.post.entity.Post;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class PostDetail {
     private final Long id;
 

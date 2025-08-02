@@ -2,6 +2,7 @@ package com.example.stepwise_back.domain.post.service;
 
 import com.example.stepwise_back.domain.post.controller.dto.response.PagePost;
 import com.example.stepwise_back.domain.post.controller.dto.response.PostDetail;
+import com.example.stepwise_back.domain.post.entity.Post;
 import com.example.stepwise_back.domain.post.repository.PostRepository;
 import com.example.stepwise_back.domain.post.service.input.CreatePostInput;
 import com.example.stepwise_back.domain.post.service.input.DeletePostInput;
@@ -50,6 +51,8 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public PostDetail getPostDetail(Long id) {
-        return null;
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
+        return new PostDetail(post);
     }
 }
