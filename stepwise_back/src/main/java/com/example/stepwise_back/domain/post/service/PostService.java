@@ -15,11 +15,11 @@ public interface PostService {
 
     Long createPost(CreatePostInput createPostInput);
 
-    Long deletePost(DeletePostInput deletePostInput);
+    Long deletePost(DeletePostInput deletePostInput) throws Exception;
 
-    List<PagePost> searchPost(SearchPostInput searchPostInput);
+    PagePost searchPost(SearchPostInput searchPostInput);
 
-    Long updatePost(UpdatePostInput updatePostInput);
+    Long updatePost(UpdatePostInput updatePostInput) throws Exception;
 
     PostDetail getPostDetail(Long id);
 }
