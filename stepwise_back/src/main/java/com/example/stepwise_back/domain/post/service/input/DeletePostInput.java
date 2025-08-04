@@ -6,12 +6,12 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 public class DeletePostInput {
-    private final Long id;
+    private final Long postId;
 
     private final String password;
 
-    public DeletePostInput(Long id, DeletePostRequest deletePostRequest){
-        this.id = id;
+    public DeletePostInput(Long postId, DeletePostRequest deletePostRequest){
+        this.postId = postId;
         this.password = deletePostRequest.getPassword();
     }
 }
