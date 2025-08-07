@@ -1,5 +1,6 @@
 package com.example.stepwise_back.domain.users.service;
 
+import com.example.stepwise_back.domain.users.service.dto.input.UserLoginInput;
 import com.example.stepwise_back.domain.users.service.dto.output.UserLoginOutput;
 
 public interface UserService {
@@ -12,5 +13,5 @@ public interface UserService {
 
     public void deleteUser();
 
-    public UserLoginOutput login();
+    public UserLoginOutput login(UserLoginInput userLoginInput);
 }
