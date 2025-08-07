@@ -1,6 +1,6 @@
 package com.example.stepwise_back.domain.users.service;
 
-import com.example.stepwise_back.domain.users.repostiory.UsersRepository;
+import com.example.stepwise_back.domain.users.repostiory.UserRepository;
 import com.example.stepwise_back.domain.users.service.dto.input.UserDeleteInput;
 import com.example.stepwise_back.domain.users.service.dto.input.UserLoginInput;
 import com.example.stepwise_back.domain.users.service.dto.input.UserNicknameUpdateInput;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserRegisterOutput register(UserRegisterInput userRegisterInput) {
@@ -47,6 +47,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean validateUserIdUniqueness(String userId) {
-        return usersRepository.existsUsersByUserId(userId);
+        return userRepository.existsUsersByUserId(userId);
     }
 }
