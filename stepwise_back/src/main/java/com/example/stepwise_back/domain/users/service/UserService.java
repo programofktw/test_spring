@@ -1,19 +1,22 @@
 package com.example.stepwise_back.domain.users.service;
 
-import com.example.stepwise_back.domain.users.service.dto.input.UserDeleteInput;
-import com.example.stepwise_back.domain.users.service.dto.input.UserLoginInput;
-import com.example.stepwise_back.domain.users.service.dto.output.UserDeleteOutput;
-import com.example.stepwise_back.domain.users.service.dto.output.UserLoginOutput;
+import com.example.stepwise_back.domain.base.NullResponse;
+import com.example.stepwise_back.domain.users.service.dto.input.*;
+import com.example.stepwise_back.domain.users.service.dto.output.*;
 
 public interface UserService {
 
-    public void register();
+    public UserRegisterOutput register(UserRegisterInput userRegisterInput);
 
-    public void updatePassword();
+    public UserPasswordUpdateOutput updatePassword(UserNicknameUpdateInput userNicknameUpdateInput);
 
-    public void updateNickname();
+    public UserNicknameUpdateOutput updateNickname(UserNicknameUpdateInput userNicknameUpdateInput);
 
     public UserDeleteOutput deleteUser(UserDeleteInput userDeleteInput);
 
     public UserLoginOutput login(UserLoginInput userLoginInput);
+
+    public void validateNicknameUniqueness(String nickname);
+
+    public void validateUserIdUniqueness(String userId);
 }
