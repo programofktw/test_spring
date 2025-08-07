@@ -16,7 +16,7 @@ public interface UserService {
 
     public UserLoginOutput login(UserLoginInput userLoginInput);
 
-    public void validateNicknameUniqueness(String nickname);
+    public boolean validateNicknameUniqueness(String nickname);
 
-    public void validateUserIdUniqueness(String userId);
+    public boolean validateUserIdUniqueness(String userId);
 }
