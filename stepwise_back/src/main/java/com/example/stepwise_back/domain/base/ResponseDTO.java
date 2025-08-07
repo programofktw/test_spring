@@ -17,4 +17,5 @@ public class ResponseDTO<T>{
 
         @JsonProperty("result")
         private T result;
+
 }
