@@ -19,7 +19,7 @@ public class UsersController {
     private final UserService userService;
 
     @GetMapping("/check-id")
-    public ResponseEntity<ResponseDTO<AvailableResponse>> isUserIdDuplicated(@RequestParam("userId") String userId){
+    public ResponseEntity<ResponseDTO<AvailableResponse>> isUserIdDuplicated(@RequestParam(name = "userId") String userId){
 
         return ResponseEntity.ok().body(ResponseDTO.<AvailableResponse>builder()
                 .isSuccess(true)

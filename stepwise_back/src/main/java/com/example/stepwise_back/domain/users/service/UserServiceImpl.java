@@ -47,6 +47,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean validateUserIdUniqueness(String userId) {
-        return userRepository.existsUsersByUserId(userId);
+        return !userRepository.existsUsersByUserId(userId);
     }
 }
