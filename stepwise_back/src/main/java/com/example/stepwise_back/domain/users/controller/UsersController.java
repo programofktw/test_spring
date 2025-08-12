@@ -6,10 +6,7 @@ import com.example.stepwise_back.domain.base.ResponseDTO;
 import com.example.stepwise_back.domain.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -26,4 +23,7 @@ public class UsersController {
                 .stateCode(200)
                 .result(AvailableResponse.builder().available(userService.validateUserIdUniqueness(userId)).build()).build());
     }
+
+    @PostMapping("")
+    public ResponseEntity<ResponseDTO<AvailableResponse>> userRegister(@RequestBody )
 }
