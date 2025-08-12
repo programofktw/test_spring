@@ -1,4 +1,6 @@
 package com.example.stepwise_back.domain.users.service.dto.output;
 
-public record UserRegisterOutput() {
+public record UserRegisterOutput(
+        Boolean available
+) {
 }
