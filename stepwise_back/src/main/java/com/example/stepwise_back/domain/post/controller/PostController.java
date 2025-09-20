@@ -26,16 +26,12 @@ public class PostController {
     public ResponseEntity<ResponseDTO<PagePost>> getPosts(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size
-    ){
+    ) {
         return ResponseEntity.ok().body(
-                            ResponseDTO.<PagePost>builder()
-                                .isSuccess(true)
-                                .stateCode(200)
-                                .result(postService.getPosts(page, size))
-                                .build()
-                            );
+                ResponseDTO.of(true, 200,
+                        postService.getPosts(page, size))
+        );
     }
-
 
     @GetMapping("/search")
     public ResponseEntity<ResponseDTO<PagePost>> searchPosts(
@@ -43,12 +39,10 @@ public class PostController {
             @RequestParam("keyword") String keyword,
             @RequestParam("size") Integer size,
             @RequestParam("page") Integer page
-    ){
+    ) {
         return ResponseEntity.ok().body(
-                ResponseDTO.<PagePost>builder()
-                        .isSuccess(true)
-                        .stateCode(200)
-                        .result(postService.searchPost(
+                ResponseDTO.of(true, 200,
+                        postService.searchPost(
                                 SearchPostInput.builder()
                                         .category(category)
                                         .keyword(keyword)
@@ -56,36 +50,26 @@ public class PostController {
                                         .size(size)
                                         .build()
                         ))
-                        .build()
         );
     }
 
     @GetMapping("/{post_id}")
     public ResponseEntity<ResponseDTO<PostDetail>> getPostDetail(
             @PathVariable("post_id") Long postId
-    ){
-
+    ) {
         return ResponseEntity.ok().body(
-                    ResponseDTO.<PostDetail>builder()
-                            .isSuccess(true)
-                            .stateCode(200)
-                            .result(postService.getPostDetail(postId))
-                            .build()
-                    );
-
+                ResponseDTO.of(true, 200,
+                        postService.getPostDetail(postId))
+        );
     }
-
 
     @PostMapping("")
     public ResponseEntity<ResponseDTO<Long>> createPost(
             @RequestBody CreatePostRequest createPostRequest
-    ){
+    ) {
         return ResponseEntity.ok().body(
-                ResponseDTO.<Long>builder()
-                        .isSuccess(true)
-                        .stateCode(200)
-                        .result(postService.createPost(new CreatePostInput(createPostRequest)))
-                        .build()
+                ResponseDTO.of(true, 200,
+                        postService.createPost(new CreatePostInput(createPostRequest)))
         );
     }
 
@@ -95,15 +79,11 @@ public class PostController {
             @RequestBody UpdatePostRequest updatePostRequest
     ) throws Exception {
         return ResponseEntity.ok().body(
-                ResponseDTO.<Long>builder()
-                        .isSuccess(true)
-                        .stateCode(200)
-                        .result(postService.updatePost(UpdatePostInput
-                                                            .builder()
-                                                            .updatePostRequest(updatePostRequest)
-                                                            .postId(postId)
-                                                            .build()))
-                        .build()
+                ResponseDTO.of(true, 200,
+                        postService.updatePost(UpdatePostInput.builder()
+                                .updatePostRequest(updatePostRequest)
+                                .postId(postId)
+                                .build()))
         );
     }
 
@@ -113,13 +93,8 @@ public class PostController {
             @RequestBody DeletePostRequest deletePostRequest
     ) throws Exception {
         return ResponseEntity.ok().body(
-                ResponseDTO.<Long>builder()
-                        .isSuccess(true)
-                        .stateCode(200)
-                        .result(postService.deletePost(
-                                new DeletePostInput(postId, deletePostRequest)
-                        ))
-                        .build()
+                ResponseDTO.of(true, 200,
+                        postService.deletePost(new DeletePostInput(postId, deletePostRequest)))
         );
     }
 }

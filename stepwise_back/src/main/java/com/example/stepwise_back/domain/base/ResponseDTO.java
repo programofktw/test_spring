@@ -18,4 +18,12 @@ public class ResponseDTO<T>{
         @JsonProperty("result")
         private T result;
 
+
+        public static <T> ResponseDTO<T> of(Boolean isSuccess, Integer stateCode, T result) {
+                return ResponseDTO.<T>builder()
+                        .isSuccess(isSuccess)
+                        .stateCode(stateCode)
+                        .result(result)
+                        .build();
+        }
 }
