@@ -48,4 +48,9 @@ public class Users extends BaseEntity {
         post.setUser(null);
     }
 
+    public Users(String userId, String password, String nickName) {
+        this.userId = userId;
+        this.password = password;
+        this.nickName = nickName;
+    }
 }
