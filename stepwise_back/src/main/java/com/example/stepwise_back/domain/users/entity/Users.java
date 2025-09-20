@@ -28,7 +28,7 @@ public class Users extends BaseEntity {
     private String nickName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
 
 
     public void updateNickName(String nickName){
@@ -55,6 +55,5 @@ public class Users extends BaseEntity {
         this.userId = userId;
         this.password = password;
         this.nickName = nickName;
-        posts = new ArrayList<>();
     }
 }
