@@ -10,11 +10,13 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA용 기본 생성자
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "users")
 public class Users extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(name = "user_id", nullable = false)
     private String userId;
@@ -26,7 +28,7 @@ public class Users extends BaseEntity {
     private String nickName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
 
 
     public void updateNickName(String nickName){
@@ -40,17 +42,19 @@ public class Users extends BaseEntity {
 
     public void addPost(Post post) {
         posts.add(post);
-        post.setUser(this);
+        post.initPost(this);
     }
 
     public void removePost(Post post) {
         posts.remove(post);
-        post.setUser(null);
+        post.initPost(null);
     }
 
+    @Builder
     public Users(String userId, String password, String nickName) {
         this.userId = userId;
         this.password = password;
         this.nickName = nickName;
+        posts = new ArrayList<>();
     }
 }

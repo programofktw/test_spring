@@ -5,10 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.UUID;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @DataJpaTest
+@ActiveProfiles("test")
 class UserRepositoryTest {
 
     @Autowired
@@ -16,11 +20,14 @@ class UserRepositoryTest {
 
 
     @Test
-    @DisplayName("존재하는 userId로 User를 검색했을 때, 정상적으로 검색되는 지 여부 확인")
+    @DisplayName("userId가 이미 존재하는 지 검색했을 때, 존재하는 userId에 대해 true 반환하는지 확인.")
     void findUserbyUserIdTest(){
         //Given
+
+        String userId = UUID.randomUUID().toString();
+
         Users newUser = Users.builder()
-                .userId("123")
+                .userId(userId)
                 .nickName("김태완")
                 .password("1234")
                 .build();
@@ -28,7 +35,10 @@ class UserRepositoryTest {
         userRepository.save(newUser);
 
         //When
+        boolean isExist = userRepository.existsUsersByUserId(userId);
 
         //Then
+        assertThat(isExist).isEqualTo(true);
+
     }
 }

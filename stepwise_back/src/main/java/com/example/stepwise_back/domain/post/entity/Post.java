@@ -7,10 +7,12 @@ import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 @Entity
 public class Post extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(name = "user_name")
     private String userName;
@@ -21,13 +23,24 @@ public class Post extends BaseEntity {
     @Column(name = "title")
     private String title;
 
+    @Builder
+    public Post(String userName, String password, String title, String body) {
+        this.userName = userName;
+        this.password = password;
+        this.title = title;
+        this.body = body;
+    }
+
     @Column(name = "body")
     private String body;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") // Users 테이블의 PK를 참조하는 외래키
     private Users user;
+
+    public void initPost(Users user){
+        this.user = user;
+    }
 
     public void update(String body, String title){
         this.title = title;

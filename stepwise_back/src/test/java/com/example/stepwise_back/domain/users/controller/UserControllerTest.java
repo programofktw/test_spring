@@ -1,10 +1,15 @@
 package com.example.stepwise_back.domain.users.controller;
 
 import com.example.stepwise_back.domain.users.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -13,11 +18,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
+@ActiveProfiles("test")
+@WebMvcTest(controllers = UsersController.class)
 public class UserControllerTest {
 
-    private final UserService userService = Mockito.mock(UserService.class);
-    private final UsersController usersController = new UsersController(userService);
-    private final MockMvc mockMvc = MockMvcBuilders.standaloneSetup(usersController).build();
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private UserService userService;
 
     @Test
     @DisplayName("1. 이미 있는 아이디일 때 false 반환 테스트")
