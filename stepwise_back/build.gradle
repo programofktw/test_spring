@@ -29,10 +29,20 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	//test 관련 의존성
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testRuntimeOnly 'com.h2database:h2'
+
+	//password 암호화 관련
+	implementation 'org.springframework.security:spring-security-crypto'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	//Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+	//해당 오류 해결
+	jvmArgs '-Xshare:off'
 }
