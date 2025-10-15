@@ -1,5 +1,7 @@
 package com.example.stepwise_back.domain.users.service;
 
+import com.example.stepwise_back.domain.users.entity.Users;
+import com.example.stepwise_back.domain.users.policy.PasswordEncoder;
 import com.example.stepwise_back.domain.users.repostiory.UserRepository;
 import com.example.stepwise_back.domain.users.service.dto.input.UserDeleteInput;
 import com.example.stepwise_back.domain.users.service.dto.input.UserLoginInput;
@@ -7,6 +9,7 @@ import com.example.stepwise_back.domain.users.service.dto.input.UserNicknameUpda
 import com.example.stepwise_back.domain.users.service.dto.input.UserRegisterInput;
 import com.example.stepwise_back.domain.users.service.dto.output.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.jmx.ParentAwareNamingStrategy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,9 +18,24 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
     @Override
     public UserRegisterOutput register(UserRegisterInput userRegisterInput) {
-        return null;
+
+        //닉네임 중복은 허용합니다.
+        if( userRepository.existsUsersByUserId(userRegisterInput.getUserId())){
+            throw new IllegalArgumentException("이미 존재하는 UserId입니다.");
+        }
+
+        Users user = Users.builder()
+                .userId(userRegisterInput.getUserId())
+                .password(passwordEncoder.encored(userRegisterInput.getPassword()))
+                .nickName(userRegisterInput.getNickname())
+                .build();
+
+        userRepository.save(user);
+
+        return new UserRegisterOutput(true);
     }
 
     @Override
